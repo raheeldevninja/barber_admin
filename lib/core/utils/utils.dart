@@ -1,8 +1,11 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class Utils {
+
+  static final _picker = ImagePicker();
 
   static void showCustomSnackBar(
       BuildContext context, String message, ContentType contentType) {
@@ -23,5 +26,15 @@ class Utils {
       ..showSnackBar(snackBar);
   }
 
+
+  static Future<XFile?> getImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    return pickedFile;
+  }
+
+  static Future<XFile?> getImageFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    return pickedFile;
+  }
 
 }

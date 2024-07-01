@@ -7,6 +7,8 @@ import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/features/auth/widgets/staff_item.dart';
 import 'package:barber_admin/features/home/all_services_screen.dart';
 import 'package:barber_admin/features/home/all_staffs_screen.dart';
+import 'package:barber_admin/features/home/contact_details_screen.dart';
+import 'package:barber_admin/features/home/shop_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -62,15 +64,33 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //shop name
-                const Text(
-                  'Barber Shop',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Barber Shop',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ShopDetailsScreen(),
+                          ),
+                        );
+
+                      },
+                      icon: const Icon(Icons.edit),
+                    ),
+                  ],
                 ),
 
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
 
                 //owner name
                 Text(
@@ -133,12 +153,28 @@ class _HomePageState extends State<HomePage> {
 
                 const SizedBox(height: 20),
 
-                const Text(
-                  'Contact Details:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Contact Details:',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ContactDetailsScreen(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.edit),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 4),
@@ -182,15 +218,12 @@ class _HomePageState extends State<HomePage> {
                     //view all services button
                     TextButton(
                       onPressed: () {
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const AllServicesScreen(),
                           ),
                         );
-
-
                       },
                       child: const Text(
                         'View All',
@@ -288,15 +321,12 @@ class _HomePageState extends State<HomePage> {
                     //view all staff button
                     TextButton(
                       onPressed: () {
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const AllStaffsScreen(),
                           ),
                         );
-
-
                       },
                       child: const Text(
                         'View All',
@@ -315,6 +345,7 @@ class _HomePageState extends State<HomePage> {
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: _staffs.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final staff = _staffs[index];
                     return Container(
@@ -332,8 +363,6 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-
-
               ],
             ),
           ),
@@ -421,5 +450,4 @@ class _HomePageState extends State<HomePage> {
     _staffs.add(Staff(name: 'Lara', image: File('')));
     _staffs.add(Staff(name: 'Smith', image: File('')));
   }
-
 }

@@ -3,6 +3,7 @@ import 'package:barber_admin/core/model/working_day.dart';
 import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
+import 'package:barber_admin/core/utils/utils.dart';
 import 'package:barber_admin/features/auth/add_services_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
 
   List<WorkingDay> _workingDays = [];
 
-  File? _image;
-  final picker = ImagePicker();
+  File? _shopImage;
 
   TimeOfDay startTime = TimeOfDay.now();
   TimeOfDay endTime = TimeOfDay.now();
@@ -54,45 +54,32 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            //image picker
-            Center(
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              _image != null ? FileImage(_image!) : null,
-                        )
-                      : const CircleAvatar(
-                          radius: 50,
-                          child: Icon(
-                            Icons.image,
-                            size: 40,
-                          ),
-                        ),
 
-                  //image picker
-                  Positioned(
-                    child: GestureDetector(
-                      onTap: _showImagePickerOptions,
-                      child: InkWell(
-                        onTap: () {
-                          _showImagePickerOptions();
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+            InkWell(
+              onTap: () {
+                _getShopImage();
+              },
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                  width: double.maxFinite,
+                  height: 160,
+                  //margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ],
+                  child: _shopImage == null ? Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.grey.withOpacity(0.15),
+                    ),
+                    child: Icon(Icons.add, size: 60, color: Colors.grey.withOpacity(0.7),),
+                  ) : ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.file(
+                      _shopImage!,
+                      fit: BoxFit.cover,
+                    ),
+                  )
               ),
             ),
 
@@ -254,47 +241,53 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
     );
   }
 
-  Future _getImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
-  Future _getImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
-  Future _showImagePickerOptions() async {
+  Future _getShopImage() async {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
         actions: [
           CupertinoActionSheetAction(
             child: const Text('Photo Gallery'),
-            onPressed: () {
+            onPressed: () async {
               // close the options modal
               Navigator.of(context).pop();
               // get image from gallery
-              _getImageFromGallery();
+
+              //XFile? tempFile = await _getImageFromGallery();
+              XFile? tempFile = await Utils.getImageFromGallery();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _shopImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Camera'),
-            onPressed: () {
+            onPressed: () async {
               // close the options modal
               Navigator.of(context).pop();
               // get image from camera
-              _getImageFromCamera();
+
+              //XFile? tempFile = await _getImageFromCamera();
+              XFile? tempFile = await Utils.getImageFromCamera();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _shopImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
             },
           ),
         ],
@@ -351,6 +344,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
     _servicesController.dispose();
     _addressController.dispose();
 
-    _image = null;
+    _shopImage = null;
   }
 }

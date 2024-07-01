@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
+import 'package:barber_admin/core/utils/utils.dart';
 import 'package:barber_admin/features/auth/register_business_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -20,6 +25,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   bool _obscureText = true;
 
+  File? _ownerImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +40,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80),
           children: [
+
+            //image picker
+            Center(
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  _ownerImage != null
+                      ? CircleAvatar(
+                    radius: 50,
+                    backgroundImage:
+                    _ownerImage != null ? FileImage(_ownerImage!) : null,
+                  )
+                      : const CircleAvatar(
+                    radius: 50,
+                    child: Icon(
+                      Icons.image,
+                      size: 40,
+                    ),
+                  ),
+
+                  //image picker
+                  Positioned(
+                    child: GestureDetector(
+                      onTap: _getOwnerImage,
+                      child: InkWell(
+                        onTap: () {
+                          _getOwnerImage();
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(
+                height: 20
+            ),
 
             AppTextField(
               controller: _ownerNameController,
@@ -100,7 +153,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 }
 
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -137,6 +189,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           ],
         ),
+      ),
+    );
+  }
+
+  Future _getOwnerImage() async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: [
+          CupertinoActionSheetAction(
+            child: const Text('Photo Gallery'),
+            onPressed: () async {
+              // close the options modal
+              Navigator.of(context).pop();
+
+              // get image from gallery
+              XFile? tempFile = await Utils.getImageFromGallery();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _ownerImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Camera'),
+            onPressed: () async {
+              // close the options modal
+              Navigator.of(context).pop();
+
+              // get image from camera
+              XFile? tempFile = await Utils.getImageFromCamera();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _ownerImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
+            },
+          ),
+        ],
       ),
     );
   }
