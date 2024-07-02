@@ -39,8 +39,6 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
           padding: const EdgeInsets.all(24),
           children: [
 
-            const SizedBox(height: 30),
-
             AppTextField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,

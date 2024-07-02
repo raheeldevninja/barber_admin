@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class BarberServiceItem extends StatelessWidget {
   const BarberServiceItem(
     this.service, {
-    required this.onTapRemove,
+    this.onTapRemove,
     this.onTap,
     super.key,
   });
 
   final BarberService service;
-  final VoidCallback onTapRemove;
+  final VoidCallback? onTapRemove;
   final VoidCallback? onTap;
 
   @override
@@ -81,30 +81,33 @@ class BarberServiceItem extends StatelessWidget {
         ),
 
         //delete
-        Positioned(
-          right: -24,
-          top: -24,
-          child: GestureDetector(
-            onTap: onTapRemove,
-            child: Container(
-              width: 30,
-              height: 30,
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.grey.withOpacity(0.4)),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.close,
-                  size: 20,
-                  color: Colors.white,
+        if(onTapRemove != null) ...[
+          Positioned(
+            right: -24,
+            top: -24,
+            child: GestureDetector(
+              onTap: onTapRemove,
+              child: Container(
+                width: 30,
+                height: 30,
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.grey.withOpacity(0.4)),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.close,
+                    size: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
+
       ],
     );
   }

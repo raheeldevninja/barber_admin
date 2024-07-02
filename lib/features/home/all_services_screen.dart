@@ -1,9 +1,9 @@
 import 'package:barber_admin/core/app/images.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
+import 'package:barber_admin/core/ui/barber_service_item.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/dialgos.dart';
 import 'package:barber_admin/core/ui/no_content_widget.dart';
-import 'package:barber_admin/features/auth/widgets/barber_service_item.dart';
 import 'package:flutter/material.dart';
 
 class AllServicesScreen extends StatefulWidget {

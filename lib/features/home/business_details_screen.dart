@@ -9,14 +9,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ShopDetailsScreen extends StatefulWidget {
-  const ShopDetailsScreen({super.key});
+class BusinessDetailsScreen extends StatefulWidget {
+  const BusinessDetailsScreen({super.key});
 
   @override
-  State<ShopDetailsScreen> createState() => _ShopDetailsScreenState();
+  State<BusinessDetailsScreen> createState() => _BusinessDetailsScreenState();
 }
 
-class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
+class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _businessNameController = TextEditingController();
@@ -45,6 +45,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
         child: ListView(
           children: [
 
+            //shop image
             Stack(
               children: [
                 Container(
@@ -94,7 +95,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  //image picker
+                  //owner image
                   Center(
                     child: Stack(
                       alignment: Alignment.bottomRight,
