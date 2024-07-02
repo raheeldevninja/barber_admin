@@ -8,7 +8,7 @@ import 'package:barber_admin/features/auth/widgets/staff_item.dart';
 import 'package:barber_admin/features/home/all_services_screen.dart';
 import 'package:barber_admin/features/home/all_staffs_screen.dart';
 import 'package:barber_admin/features/home/contact_details_screen.dart';
-import 'package:barber_admin/features/home/shop_details_screen.dart';
+import 'package:barber_admin/features/home/business_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
