@@ -2,7 +2,8 @@ import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/features/auth/sign_up_screen.dart';
-import 'package:flutter/gestures.dart';
+import 'package:barber_admin/features/auth/widgets/sign_in_sign_up_link.dart';
+import 'package:barber_admin/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -30,32 +31,26 @@ class _SignInScreenState extends State<SignInScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80),
+          padding: const EdgeInsets.all(20),
           children: [
-
             AppTextField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               hintText: 'Email',
               validator: (value) {
                 if (value != null && value.isNotEmpty) {
-                  if (!RegExp(
-                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                  if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
                       .hasMatch(value)) {
                     return 'Invalid Email';
                   }
-                }
-                else if(value!.isEmpty) {
+                } else if (value!.isEmpty) {
                   return 'Email field empty';
                 }
 
                 return null;
               },
             ),
-
-
             const SizedBox(height: 10),
-
             AppTextField(
               controller: _passwordController,
               keyboardType: TextInputType.text,
@@ -77,43 +72,51 @@ class _SignInScreenState extends State<SignInScreen> {
                 return null;
               },
             ),
-
-            const SizedBox(height: 20),
-            SimpleButton(
-              text: 'Sign In',
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-
-                }
-              },
-            ),
-
-            const SizedBox(height: 20),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: 'Don\'t have an account? ',
-                style: const TextStyle(color: Colors.black),
-                children: [
-                  TextSpan(
-                    text: 'Register Here',
-                    style: const TextStyle(
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Forgot Password?',
+                    style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
-                    recognizer: TapGestureRecognizer()..onTap = () {
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
-                        ),
-                      );
-
-                    },
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            SimpleButton(
+              text: 'Sign In',
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {}
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                      (route) => false,
+                );
+
+              },
+            ),
+            const SizedBox(height: 20),
+
+            SignInSignUpLink(
+              label: 'Don\'t have an account? ',
+              linkLabel: 'Register Here',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignUpScreen(),
+                  ),
+                );
+              },
             ),
 
           ],

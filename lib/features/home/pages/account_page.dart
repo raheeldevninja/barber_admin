@@ -1,6 +1,7 @@
 import 'package:barber_admin/core/app/images.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
+import 'package:barber_admin/features/auth/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class AccountPage extends StatefulWidget {
@@ -78,7 +79,15 @@ class _AccountPageState extends State<AccountPage> {
               width: double.maxFinite,
               child: SimpleButton(
                 text: 'Logout',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
             ),
 

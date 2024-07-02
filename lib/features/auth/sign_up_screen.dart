@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/core/utils/utils.dart';
 import 'package:barber_admin/features/auth/register_business_screen.dart';
+import 'package:barber_admin/features/auth/widgets/sign_in_sign_up_link.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -32,15 +31,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Sign Up',
-        shouldShowBack: false,
-        onBackPressed: () {},
+        shouldShowBack: true,
+        onBackPressed: () {
+          Navigator.pop(context);
+        },
       ),
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80),
+          padding: const EdgeInsets.all(20),
           children: [
-
             //image picker
             Center(
               child: Stack(
@@ -48,17 +48,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   _ownerImage != null
                       ? CircleAvatar(
-                    radius: 50,
-                    backgroundImage:
-                    _ownerImage != null ? FileImage(_ownerImage!) : null,
-                  )
+                          radius: 50,
+                          backgroundImage: _ownerImage != null
+                              ? FileImage(_ownerImage!)
+                              : null,
+                        )
                       : const CircleAvatar(
-                    radius: 50,
-                    child: Icon(
-                      Icons.image,
-                      size: 40,
-                    ),
-                  ),
+                          radius: 50,
+                          child: Icon(
+                            Icons.image,
+                            size: 40,
+                          ),
+                        ),
 
                   //image picker
                   Positioned(
@@ -83,9 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
 
-            const SizedBox(
-                height: 20
-            ),
+            const SizedBox(height: 20),
 
             AppTextField(
               controller: _ownerNameController,
@@ -107,13 +106,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               hintText: 'Email',
               validator: (value) {
                 if (value != null && value.isNotEmpty) {
-                  if (!RegExp(
-                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                  if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
                       .hasMatch(value)) {
                     return 'Invalid Email';
                   }
-                }
-                else if(value!.isEmpty) {
+                } else if (value!.isEmpty) {
                   return 'Email field empty';
                 }
 
@@ -149,9 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SimpleButton(
               text: 'Sign Up',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-
-                }
+                if (_formKey.currentState!.validate()) {}
 
                 Navigator.push(
                   context,
@@ -162,31 +157,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               },
             ),
 
-            const SizedBox(
-              height: 16,
-            ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: 'Already have an account? ',
-                style: const TextStyle(color: Colors.black),
-                children: [
-                  TextSpan(
-                    text: 'Sign In',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pop(context);
-                      },
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 16),
 
-
+            SignInSignUpLink(
+              label: 'Already have an account? ',
+              linkLabel: 'Login Here',
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
           ],
         ),
       ),
@@ -207,16 +186,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // get image from gallery
               XFile? tempFile = await Utils.getImageFromGallery();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _ownerImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
           CupertinoActionSheetAction(
@@ -228,16 +204,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // get image from camera
               XFile? tempFile = await Utils.getImageFromCamera();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _ownerImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
         ],
