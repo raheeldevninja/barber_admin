@@ -61,7 +61,7 @@ class _AllStaffsScreenState extends State<AllStaffsScreen> {
                 return Future.value(true);
               },
               child: StaffItem(
-                staff: staff,
+                staff,
                 onPressed: () {
                   Dialogs.showAddEditStaffDialog(context, staff: staff).then((staff) {
                     if (staff != null) {

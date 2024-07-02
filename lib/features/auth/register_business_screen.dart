@@ -33,7 +33,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   TimeOfDay startTime = TimeOfDay.now();
   TimeOfDay endTime = TimeOfDay.now();
 
-
   @override
   void initState() {
     super.initState();
@@ -54,7 +53,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-
             InkWell(
               onTap: () {
                 _getShopImage();
@@ -63,29 +61,31 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               child: Container(
                   width: double.maxFinite,
                   height: 160,
-                  //margin: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: _shopImage == null ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey.withOpacity(0.15),
-                    ),
-                    child: Icon(Icons.add, size: 60, color: Colors.grey.withOpacity(0.7),),
-                  ) : ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.file(
-                      _shopImage!,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-              ),
+                  child: _shopImage == null
+                      ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.grey.withOpacity(0.15),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 60,
+                            color: Colors.grey.withOpacity(0.7),
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.file(
+                            _shopImage!,
+                            fit: BoxFit.cover,
+                          ),
+                        )),
             ),
 
-            const SizedBox(
-              height: 20
-            ),
+            const SizedBox(height: 20),
 
             AppTextField(
               controller: _businessNameController,
@@ -205,8 +205,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
 
             const SizedBox(height: 20),
 
-
-
             AppTextField(
               controller: _addressController,
               keyboardType: TextInputType.text,
@@ -218,7 +216,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                 return null;
               },
             ),
-
 
             const SizedBox(height: 20),
 
@@ -256,16 +253,13 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               //XFile? tempFile = await _getImageFromGallery();
               XFile? tempFile = await Utils.getImageFromGallery();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _shopImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
           CupertinoActionSheetAction(
@@ -278,16 +272,13 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               //XFile? tempFile = await _getImageFromCamera();
               XFile? tempFile = await Utils.getImageFromCamera();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _shopImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
         ],

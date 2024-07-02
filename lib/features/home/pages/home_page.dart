@@ -351,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: StaffItem(
-                        staff: staff,
+                        staff,
                         onPressed: () {},
                         onDismissed: () {
                           //remove staff

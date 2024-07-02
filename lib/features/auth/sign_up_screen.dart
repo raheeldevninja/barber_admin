@@ -65,17 +65,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Positioned(
                     child: GestureDetector(
                       onTap: _getOwnerImage,
-                      child: InkWell(
-                        onTap: () {
-                          _getOwnerImage();
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.black,
-                          ),
+                      child: const CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.black,
                         ),
                       ),
                     ),

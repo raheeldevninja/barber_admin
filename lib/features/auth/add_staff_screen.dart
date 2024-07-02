@@ -4,6 +4,7 @@ import 'package:barber_admin/core/model/staff.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/dialgos.dart';
 import 'package:barber_admin/core/ui/dissmissible_tile.dart';
+import 'package:barber_admin/core/ui/no_content_widget.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/features/auth/widgets/staff_item.dart';
 import 'package:barber_admin/features/home/home_screen.dart';
@@ -33,7 +34,7 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
         onBackPressed: () {},
       ),
       body: _staffs.isEmpty
-          ? const Center(child: Text('No Staff Added'))
+          ? const NoContentWidget('No Staff Added')
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: _staffs.length,
@@ -55,7 +56,7 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
                       return Future.value(true);
                     },
                     child: StaffItem(
-                      staff: staff,
+                      staff,
                       onPressed: () {
                         Dialogs.showAddEditStaffDialog(context, staff: staff).then((staff) {
                           if (staff != null) {

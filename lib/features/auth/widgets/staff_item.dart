@@ -3,8 +3,8 @@ import 'package:barber_admin/core/model/staff.dart';
 import 'package:flutter/material.dart';
 
 class StaffItem extends StatelessWidget {
-  const StaffItem({
-    required this.staff,
+  const StaffItem(
+    this.staff, {
     required this.onPressed,
     required this.onDismissed,
     super.key,
@@ -13,7 +13,6 @@ class StaffItem extends StatelessWidget {
   final Staff staff;
   final VoidCallback onPressed;
   final VoidCallback onDismissed;
-
 
   @override
   Widget build(BuildContext context) {
