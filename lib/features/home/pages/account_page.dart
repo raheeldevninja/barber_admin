@@ -26,14 +26,14 @@ class _AccountPageState extends State<AccountPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             //profile image
-            CircleAvatar(
+            const CircleAvatar(
               radius: 40,
               backgroundColor: Colors.grey,
               backgroundImage: AssetImage(Images.userImage),
             ),
             const SizedBox(height: 16),
             //user name
-            Text(
+            const Text(
               'John Doe',
               style: TextStyle(
                 fontSize: 20,
@@ -42,11 +42,11 @@ class _AccountPageState extends State<AccountPage> {
             ),
             const SizedBox(height: 16),
             //user email
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.email),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Text(
                   'john@gmail.com',
                   style: TextStyle(
@@ -58,11 +58,11 @@ class _AccountPageState extends State<AccountPage> {
             ),
             const SizedBox(height: 8),
             //user phone number
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.call),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Text(
                   '+966 123 456 789',
                   style: TextStyle(
