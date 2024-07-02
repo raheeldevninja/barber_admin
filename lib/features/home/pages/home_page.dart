@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:barber_admin/core/app/images.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
 import 'package:barber_admin/core/model/staff.dart';
+import 'package:barber_admin/core/ui/barber_service_item.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/features/auth/widgets/staff_item.dart';
 import 'package:barber_admin/features/home/all_services_screen.dart';
@@ -76,14 +77,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ShopDetailsScreen(),
+                            builder: (context) => const BusinessDetailsScreen(),
                           ),
                         );
-
                       },
                       icon: const Icon(Icons.edit),
                     ),
@@ -93,17 +92,17 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 4),
 
                 //owner name
-                Text(
+                const Text(
                   'Owner: John Doe',
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
 
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
 
                 //shop timing
-                Text(
+                const Text(
                   'Timing: 10:00 AM - 8:00 PM',
                   style: TextStyle(
                     fontSize: 16,
@@ -180,22 +179,22 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 4),
 
                 //email
-                Text(
+                const Text(
                   'Email: johndoe@gmail.com',
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
+                const SizedBox(height: 4),
+                const Text(
                   'Phone: +1234567890',
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
 
-                SizedBox(height: 4),
-                Text(
+                const SizedBox(height: 4),
+                const Text(
                   'Address: 123, Main Street, City, Country',
                   style: TextStyle(
                     fontSize: 16,
@@ -246,60 +245,10 @@ class _HomePageState extends State<HomePage> {
                     itemCount: _servies.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
+                      final service = _servies[index];
                       return Container(
                         margin: const EdgeInsets.only(right: 8),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(8),
-                          onTap: () {},
-                          child: Container(
-                            width: 120,
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage: AssetImage(
-                                    _servies[index].image!,
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  _servies[index].serviceName!,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Price: \$${_servies[index].price!}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  'Duration: ${_servies[index].duration!} min',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: BarberServiceItem(service),
                       );
                     },
                   ),
