@@ -56,7 +56,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
 
-          Dialogs.showAddServiceDialog(context).then((service) {
+          Dialogs.showAddEditServiceDialog(context).then((service) {
             if (service != null) {
               setState(() {
                 _barberServices.add(service);

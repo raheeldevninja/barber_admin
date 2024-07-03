@@ -4,7 +4,8 @@ class SimpleButton extends StatelessWidget {
   const SimpleButton({
     required this.text,
     required this.onPressed,
-    super.key});
+    super.key,
+  });
 
   final String text;
   final VoidCallback? onPressed;
@@ -14,13 +15,6 @@ class SimpleButton extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
         onPressed: onPressed,
         child: Text(text),
       ),

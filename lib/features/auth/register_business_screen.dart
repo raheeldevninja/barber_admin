@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/working_day.dart';
 import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
@@ -59,30 +60,31 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               },
               borderRadius: BorderRadius.circular(16),
               child: Container(
-                  width: double.maxFinite,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: _shopImage == null
-                      ? Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.grey.withOpacity(0.15),
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 60,
-                            color: Colors.grey.withOpacity(0.7),
-                          ),
-                        )
-                      : ClipRRect(
+                width: double.maxFinite,
+                height: 160,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: _shopImage == null
+                    ? Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.file(
-                            _shopImage!,
-                            fit: BoxFit.cover,
-                          ),
-                        )),
+                          color: context.colorScheme.secondaryContainer,
+                        ),
+                        child: Icon(
+                          Icons.add,
+                          size: 60,
+                          color: context.colorScheme.onSecondaryContainer,
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.file(
+                          _shopImage!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -116,12 +118,9 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
 
             const SizedBox(height: 10),
 
-            const Text(
+            Text(
               'Working Days',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-              ),
+              style: context.textTheme.titleSmall,
             ),
 
             const SizedBox(height: 8),
@@ -146,12 +145,12 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           color: day.isSelected!
-                              ? Colors.green.withOpacity(0.2)
-                              : Colors.white,
+                              ? context.colorScheme.tertiary.withOpacity(0.2)
+                              : context.colorScheme.onPrimary,
                           border: Border.all(
                             color: day.isSelected!
-                                ? Colors.green
-                                : Colors.grey.withOpacity(0.2),
+                                ? context.colorScheme.tertiary
+                                : context.colorScheme.outlineVariant,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -160,8 +159,8 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                           day.weekday!,
                           style: TextStyle(
                               color: day.isSelected!
-                                  ? Colors.green
-                                  : Colors.black),
+                                  ? context.colorScheme.tertiary
+                                  : context.colorScheme.primary),
                         ),
                       ),
                     ),
@@ -176,13 +175,23 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                 _selectStartTime(context);
               },
               child: AbsorbPointer(
-                child: TextFormField(
+                child: /*TextFormField(
                   controller: _startTimeController,
                   decoration: InputDecoration(
                     labelText: 'Start Time',
                     hintText: startTime.format(context),
                   ),
+                ),*/
+                AppTextField(
+                  controller: _startTimeController,
+                  hintText: 'Start Time',
+                  keyboardType: TextInputType.none,
+                  validator: (value){
+                    return null;
+                  },
                 ),
+
+
               ),
             ),
 
@@ -193,12 +202,20 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                 _selectEndTime(context);
               },
               child: AbsorbPointer(
-                child: TextFormField(
+                child: /*TextFormField(
                   controller: _endTimeController,
                   decoration: InputDecoration(
                     labelText: 'End Time',
                     hintText: endTime.format(context),
                   ),
+                ),*/
+                AppTextField(
+                  controller: _endTimeController,
+                  hintText: 'End Time',
+                  keyboardType: TextInputType.none,
+                  validator: (value){
+                    return null;
+                  },
                 ),
               ),
             ),

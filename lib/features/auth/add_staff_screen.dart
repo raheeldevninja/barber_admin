@@ -104,7 +104,6 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
               ),
             );
 
-
           },
         ),
       ),

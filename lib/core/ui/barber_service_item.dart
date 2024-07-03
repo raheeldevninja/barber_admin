@@ -1,3 +1,4 @@
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,8 @@ class BarberServiceItem extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.2),
-              border: Border.all(color: Colors.green),
+              color: context.colorScheme.tertiary.withOpacity(0.2),
+              border: Border.all(color: context.colorScheme.tertiary),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -39,11 +40,7 @@ class BarberServiceItem extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   service.serviceName!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.textTheme.titleSmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -54,14 +51,12 @@ class BarberServiceItem extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.colorScheme.secondary,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     '\$ ${service.price.toString()}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: context.textTheme.titleSmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -69,9 +64,7 @@ class BarberServiceItem extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   '${service.duration.toString()} min',
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
+                  style: context.textTheme.bodyMedium,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -92,15 +85,15 @@ class BarberServiceItem extends StatelessWidget {
                 height: 30,
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: context.colorScheme.error,
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.withOpacity(0.4)),
+                  border: Border.all(color: context.colorScheme.outline),
                 ),
-                child: const Center(
+                child: Center(
                   child: Icon(
                     Icons.close,
                     size: 20,
-                    color: Colors.white,
+                    color: context.colorScheme.onError,
                   ),
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
 import 'package:flutter/material.dart';
 
@@ -25,14 +26,11 @@ class AppointmentService extends StatelessWidget {
           children: [
             Text(
               service.serviceName!,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: context.textTheme.bodyMedium,
             ),
             Text(
               '\$${service.price!}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: context.textTheme.titleSmall,
             ),
           ],
         ),
@@ -41,8 +39,7 @@ class AppointmentService extends StatelessWidget {
           children: [
             Text(
               '${service.duration} minutes',
-              style: const TextStyle(
-                fontSize: 12,
+              style: context.textTheme.bodySmall?.copyWith(
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -58,18 +55,14 @@ class AppointmentService extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               appointmentDate,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: context.textTheme.bodyLarge,
             ),
             const Spacer(),
             const Icon(Icons.timelapse, size: 20),
             const SizedBox(width: 4),
             Text(
               appointmentTime,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: context.textTheme.bodyLarge,
             ),
           ],
         ),
@@ -82,8 +75,8 @@ class AppointmentService extends StatelessWidget {
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                foregroundColor: Colors.white,
+                backgroundColor: context.colorScheme.tertiary,
+                foregroundColor: context.colorScheme.onTertiary,
               ),
               onPressed: () {},
               child: const Text('Accept'),
@@ -91,8 +84,8 @@ class AppointmentService extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
+                backgroundColor: context.colorScheme.error,
+                foregroundColor: context.colorScheme.onError,
               ),
               child: const Text('Reject'),
             ),
@@ -101,10 +94,7 @@ class AppointmentService extends StatelessWidget {
 
         //divider
         if (!isLastService) ...[
-          const Divider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
+          const Divider(),
         ],
       ],
     );

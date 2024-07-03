@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barber_admin/core/app/images.dart';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
 import 'package:barber_admin/core/model/staff.dart';
 import 'package:barber_admin/core/ui/barber_service_item.dart';
@@ -68,12 +69,9 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Barber Shop',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.titleMedium,
                     ),
                     IconButton(
                       onPressed: () {
@@ -92,32 +90,25 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 4),
 
                 //owner name
-                const Text(
+                Text(
                   'Owner: John Doe',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: context.textTheme.labelLarge,
                 ),
 
                 const SizedBox(height: 4),
 
                 //shop timing
-                const Text(
+                Text(
                   'Timing: 10:00 AM - 8:00 PM',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: context.textTheme.labelLarge,
                 ),
 
                 const SizedBox(height: 20),
 
                 //working days
-                const Text(
+                Text(
                   'Working Days:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.textTheme.titleMedium,
                 ),
 
                 const SizedBox(height: 4),
@@ -155,12 +146,9 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Contact Details:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.titleMedium,
                     ),
                     IconButton(
                       onPressed: () {
@@ -179,26 +167,20 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 4),
 
                 //email
-                const Text(
+                Text(
                   'Email: johndoe@gmail.com',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: context.textTheme.labelLarge,
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Phone: +1234567890',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: context.textTheme.labelLarge,
                 ),
 
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Address: 123, Main Street, City, Country',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: context.textTheme.labelLarge,
                 ),
 
                 const SizedBox(height: 20),
@@ -206,12 +188,9 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Services',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.titleMedium,
                     ),
 
                     //view all services button
@@ -224,13 +203,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       },
-                      child: const Text(
-                        'View All',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
-                        ),
-                      ),
+                      child: const Text('View All'),
                     ),
                   ],
                 ),
@@ -259,12 +232,9 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Staff',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.textTheme.titleMedium,
                     ),
 
                     //view all staff button
@@ -277,13 +247,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       },
-                      child: const Text(
-                        'View All',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
-                        ),
-                      ),
+                      child: const Text('View All'),
                     ),
                   ],
                 ),

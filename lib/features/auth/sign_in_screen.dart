@@ -1,3 +1,4 @@
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/ui/app_text_field.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
@@ -78,12 +79,9 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     'Forgot Password?',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.textTheme.titleSmall,
                   ),
                 ),
               ],

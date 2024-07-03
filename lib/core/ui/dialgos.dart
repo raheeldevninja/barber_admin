@@ -1,4 +1,4 @@
-import 'package:barber_admin/core/app/app_colors.dart';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/barber_service.dart';
 import 'package:barber_admin/core/model/staff.dart';
 import 'package:barber_admin/features/auth/widgets/add_service_content.dart';
@@ -19,11 +19,11 @@ sealed class Dialogs {
     );
   }
 
-  static Future showAddServiceDialog(BuildContext context, {BarberService? service}) async {
+  static Future showAddEditServiceDialog(BuildContext context, {BarberService? service}) async {
     return await showDialog< BarberService>(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: context.colorScheme.onPrimary,
         elevation: 0,
         child: SingleChildScrollView(
           child: Stack(
@@ -38,7 +38,7 @@ sealed class Dialogs {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.greyColor.withOpacity(0.4)),
+                    border: Border.all(color: context.colorScheme.outline),
                   ),
                   child: Center(
                     child: IconButton(
@@ -62,7 +62,7 @@ sealed class Dialogs {
     return await showDialog<Staff>(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: AppColors.whiteColor,
+        backgroundColor: context.colorScheme.onPrimary,
         elevation: 0,
         child: SingleChildScrollView(
           child: Stack(
@@ -77,7 +77,7 @@ sealed class Dialogs {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.greyColor.withOpacity(0.4)),
+                    border: Border.all(color: context.colorScheme.outline),
                   ),
                   child: Center(
                     child: IconButton(
@@ -113,7 +113,7 @@ sealed class Dialogs {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.secondaryColor,
+              foregroundColor: context.colorScheme.onPrimary,
             ),
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
@@ -121,7 +121,7 @@ sealed class Dialogs {
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor:
-                  isDelete ? AppColors.redColor : AppColors.secondaryColor,
+                  isDelete ? context.colorScheme.error : context.colorScheme.onError,
             ),
             onPressed: () => Navigator.pop(context),
             child: Text(

@@ -1,3 +1,4 @@
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:flutter/material.dart' hide ConfirmDismissCallback;
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -41,8 +42,8 @@ class DismissibleTile extends StatelessWidget {
               }
             },
             autoClose: true,
-            backgroundColor: Colors.red.withOpacity(0.2),
-            foregroundColor: Colors.red,
+            backgroundColor: context.colorScheme.error.withOpacity(0.2),
+            foregroundColor: context.colorScheme.error,
             icon: Icons.delete,
           ),
         ],

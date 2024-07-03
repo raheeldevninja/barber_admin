@@ -1,4 +1,4 @@
-import 'package:barber_admin/core/app/app_colors.dart';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
@@ -42,15 +42,15 @@ class AppTextField extends StatelessWidget {
         onPressed: visibilityCallback,
         icon: Icon(
           obscureText! ? Icons.visibility : Icons.visibility_off,
-          color: Colors.grey,
+          color: context.colorScheme.surface,
         ),
       );
     } else if (isSearch) {
       suffixIcon = IconButton(
         onPressed: () {},
-        icon: const Icon(
+        icon: Icon(
           Icons.search,
-          color: AppColors.greyColor,
+          color: context.colorScheme.surface,
         ),
       );
     } else {
@@ -65,20 +65,20 @@ class AppTextField extends StatelessWidget {
       readOnly: isReadOnly,
       decoration: InputDecoration(
         filled: true,
-        fillColor: AppColors.secondaryColor,
+        fillColor: context.colorScheme.secondary,
         contentPadding: const EdgeInsets.all(12.0),
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.0),
+              BorderSide(color: context.colorScheme.outline, width: 1.0),
           borderRadius: BorderRadius.circular(12.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.lightGrey, width: 1.0),
+          borderSide:
+              BorderSide(color: context.colorScheme.outline, width: 1.0),
           borderRadius: BorderRadius.circular(12.0),
         ),
         prefixIcon: isPhone
@@ -88,13 +88,15 @@ class AppTextField extends StatelessWidget {
                   const SizedBox(width: 16),
                   InkWell(
                     onTap: countryPickerCallback,
-                    child: const Text('+966',
-                        style: TextStyle(color: Colors.grey)),
+                    child: Text(
+                      '+966',
+                      style: TextStyle(color: context.colorScheme.surface),
+                    ),
                   ),
                   Container(
                     height: 20,
                     width: 1,
-                    color: Colors.grey,
+                    color: context.colorScheme.surface,
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                   ),
                 ],

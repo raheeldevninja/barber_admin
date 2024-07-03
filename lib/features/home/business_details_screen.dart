@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:barber_admin/core/app/images.dart';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/ui/app_text_field.dart';
+import 'package:barber_admin/core/ui/circle_image_picker.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/core/utils/utils.dart';
@@ -22,7 +24,6 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
   final _businessNameController = TextEditingController();
   final _ownerNameController = TextEditingController();
 
-  File? _ownerImage;
   File? _shopImage;
 
   @override
@@ -44,31 +45,31 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
         key: _formKey,
         child: ListView(
           children: [
-
             //shop image
             Stack(
               children: [
                 Container(
-                  width: double.maxFinite,
-                  height: 160,
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: _shopImage == null ? ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      Images.barberShopImage,
-                      fit: BoxFit.cover,
+                    width: double.maxFinite,
+                    height: 160,
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                  ) : ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.file(
-                      _shopImage!,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                ),
+                    child: _shopImage == null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.asset(
+                              Images.barberShopImage,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.file(
+                              _shopImage!,
+                              fit: BoxFit.cover,
+                            ),
+                          )),
                 //edit button
                 Positioned(
                   right: 16,
@@ -77,11 +78,11 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
                     onTap: () {
                       _getShopImage();
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Icon(
                         Icons.edit,
-                        color: Colors.black,
+                        color: context.colorScheme.primary,
                       ),
                     ),
                   ),
@@ -94,47 +95,9 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   //owner image
-                  Center(
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        _ownerImage != null
-                            ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                          _ownerImage != null ? FileImage(_ownerImage!) : null,
-                        )
-                            : const CircleAvatar(
-                          radius: 50,
-                          child: Icon(
-                            Icons.image,
-                            size: 40,
-                          ),
-                        ),
-
-                        //image picker
-                        Positioned(
-                          child: GestureDetector(
-                            onTap: _getOwnerImage,
-                            child: InkWell(
-                              onTap: () {
-                                _getOwnerImage();
-                              },
-                              child: const CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  const Center(
+                    child: CircleImagePicker(),
                   ),
 
                   const SizedBox(height: 20),
@@ -174,68 +137,11 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
                       onPressed: () {},
                     ),
                   ),
-
-
                 ],
               ),
             ),
-
-
-
           ],
         ),
-      ),
-    );
-  }
-
-  Future _getOwnerImage() async {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-        actions: [
-          CupertinoActionSheetAction(
-            child: const Text('Photo Gallery'),
-            onPressed: () async {
-              // close the options modal
-              Navigator.of(context).pop();
-
-              // get image from gallery
-              XFile? tempFile = await Utils.getImageFromGallery();
-
-              if(tempFile == null) {
-                return;
-              }
-
-              _ownerImage = File(tempFile.path);
-
-              setState(() {
-
-              });
-
-            },
-          ),
-          CupertinoActionSheetAction(
-            child: const Text('Camera'),
-            onPressed: () async {
-              // close the options modal
-              Navigator.of(context).pop();
-
-              // get image from camera
-              XFile? tempFile = await Utils.getImageFromCamera();
-
-              if(tempFile == null) {
-                return;
-              }
-
-              _ownerImage = File(tempFile.path);
-
-              setState(() {
-
-              });
-
-            },
-          ),
-        ],
       ),
     );
   }
@@ -250,21 +156,17 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
             onPressed: () async {
               // close the options modal
               Navigator.of(context).pop();
-              // get image from gallery
 
-              //XFile? tempFile = await _getImageFromGallery();
+              // get image from gallery
               XFile? tempFile = await Utils.getImageFromGallery();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _shopImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
           CupertinoActionSheetAction(
@@ -273,20 +175,15 @@ class _BusinessDetailsScreenState extends State<BusinessDetailsScreen> {
               // close the options modal
               Navigator.of(context).pop();
               // get image from camera
-
-              //XFile? tempFile = await _getImageFromCamera();
               XFile? tempFile = await Utils.getImageFromCamera();
 
-              if(tempFile == null) {
+              if (tempFile == null) {
                 return;
               }
 
               _shopImage = File(tempFile.path);
 
-              setState(() {
-
-              });
-
+              setState(() {});
             },
           ),
         ],

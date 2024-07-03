@@ -1,3 +1,4 @@
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,14 +20,11 @@ class SignInSignUpLink extends StatelessWidget {
       textAlign: TextAlign.center,
       text: TextSpan(
         text: label,
-        style: const TextStyle(color: Colors.black),
+        style: context.textTheme.bodyMedium,
         children: [
           TextSpan(
             text: linkLabel,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: context.textTheme.titleSmall,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 onTap();

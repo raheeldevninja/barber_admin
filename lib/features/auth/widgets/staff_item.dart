@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/staff.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +21,6 @@ class StaffItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       onTap: onPressed,
       child: Card(
-        elevation: 4,
-        margin: EdgeInsets.zero,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -33,10 +32,7 @@ class StaffItem extends StatelessWidget {
               const SizedBox(width: 16),
               Text(
                 staff.name.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.textTheme.bodyLarge
               ),
             ],
           ),

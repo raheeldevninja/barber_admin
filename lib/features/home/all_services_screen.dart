@@ -50,7 +50,7 @@ class _AllServicesScreenState extends State<AllServicesScreen> {
                 return BarberServiceItem(
                   service,
                   onTap: () {
-                    Dialogs.showAddServiceDialog(context, service: service)
+                    Dialogs.showAddEditServiceDialog(context, service: service)
                         .then((service) {
                       if (service != null) {
                         setState(() {
@@ -69,7 +69,7 @@ class _AllServicesScreenState extends State<AllServicesScreen> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Dialogs.showAddServiceDialog(context).then((service) {
+          Dialogs.showAddEditServiceDialog(context).then((service) {
             if (service != null) {
               setState(() {
                 _servies.add(service);

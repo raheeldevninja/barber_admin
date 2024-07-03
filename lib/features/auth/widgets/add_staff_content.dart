@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/model/staff.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/core/utils/utils.dart';
@@ -24,8 +25,7 @@ class _AddStaffContentState extends State<AddStaffContent> {
 
   final _staffNameController = TextEditingController();
 
-  File? _image;
-  final picker = ImagePicker();
+  File? _staffImage;
 
   @override
   void initState() {
@@ -44,20 +44,15 @@ class _AddStaffContentState extends State<AddStaffContent> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 50),
-            const Text(
+            Text(
               'Add Staff',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.textTheme.titleMedium,
             ),
             const SizedBox(height: 20),
             TextFormField(
               controller: _staffNameController,
               decoration: const InputDecoration(
                 labelText: 'Staff Name',
-                border: OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value!.isEmpty) {
@@ -71,7 +66,7 @@ class _AddStaffContentState extends State<AddStaffContent> {
 
             //image picker
             GestureDetector(
-              onTap: _showImagePickerOptions,
+              onTap: _getStaffImage,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -79,42 +74,42 @@ class _AddStaffContentState extends State<AddStaffContent> {
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: context.colorScheme.outlineVariant,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: _image == null
-                        ? const Icon(
+                    child: _staffImage == null
+                        ? Icon(
                             Icons.add_a_photo,
                             size: 40,
-                            color: Colors.grey,
+                            color: context.colorScheme.surface,
                           )
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.file(_image!),
+                            child: Image.file(_staffImage!, fit: BoxFit.cover),
                           ),
                   ),
 
                   //delete
-                  if (_image != null)
+                  if (_staffImage != null)
                     Positioned(
                       right: -10,
                       top: -10,
                       child: InkWell(
                         onTap: () {
                           setState(() {
-                            _image = null;
+                            _staffImage = null;
                           });
                         },
                         child: Container(
                           width: 30,
                           height: 30,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.red,
+                            color: context.colorScheme.error,
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.close,
-                            color: Colors.white,
+                            color: context.colorScheme.onError,
                             size: 20,
                           ),
                         ),
@@ -131,7 +126,7 @@ class _AddStaffContentState extends State<AddStaffContent> {
                 text: 'Add Staff',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    if (_image == null) {
+                    if (_staffImage == null) {
                       Utils.showCustomSnackBar(
                           context, 'Please select image', ContentType.failure);
 
@@ -139,7 +134,7 @@ class _AddStaffContentState extends State<AddStaffContent> {
                     }
 
                     Staff staff = Staff(
-                      image: _image!,
+                      image: _staffImage!,
                       name: _staffNameController.text.trim(),
                     );
 
@@ -154,47 +149,52 @@ class _AddStaffContentState extends State<AddStaffContent> {
     );
   }
 
-  Future _getImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
-  Future _getImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
-  Future _showImagePickerOptions() async {
+  Future _getStaffImage() async {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
         actions: [
           CupertinoActionSheetAction(
             child: const Text('Photo Gallery'),
-            onPressed: () {
+            onPressed: () async {
               // close the options modal
               Navigator.of(context).pop();
               // get image from gallery
-              _getImageFromGallery();
+              
+              XFile? tempFile = await Utils.getImageFromGallery();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _staffImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
+
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Camera'),
-            onPressed: () {
+            onPressed: () async {
               // close the options modal
               Navigator.of(context).pop();
               // get image from camera
-              _getImageFromCamera();
+              XFile? tempFile = await Utils.getImageFromCamera();
+
+              if(tempFile == null) {
+                return;
+              }
+
+              _staffImage = File(tempFile.path);
+
+              setState(() {
+
+              });
+
+
             },
           ),
         ],
@@ -205,7 +205,7 @@ class _AddStaffContentState extends State<AddStaffContent> {
   _initStaff() {
     if(widget.staff != null) {
       _staffNameController.text = widget.staff!.name;
-      _image = widget.staff!.image;
+      _staffImage = widget.staff!.image;
 
       setState(() {
 
@@ -219,6 +219,6 @@ class _AddStaffContentState extends State<AddStaffContent> {
     super.dispose();
 
     _staffNameController.dispose();
-    _image = null;
+    _staffImage = null;
   }
 }

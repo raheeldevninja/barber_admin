@@ -1,4 +1,5 @@
 import 'package:barber_admin/core/app/images.dart';
+import 'package:barber_admin/core/extension/context.dart';
 import 'package:barber_admin/core/ui/custom_app_bar.dart';
 import 'package:barber_admin/core/ui/simple_button.dart';
 import 'package:barber_admin/features/auth/sign_in_screen.dart';
@@ -33,42 +34,33 @@ class _AccountPageState extends State<AccountPage> {
             ),
             const SizedBox(height: 16),
             //user name
-            const Text(
+            Text(
               'John Doe',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
             //user email
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.email),
-                SizedBox(width: 10),
+                const Icon(Icons.email),
+                const SizedBox(width: 10),
                 Text(
                   'john@gmail.com',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.textTheme.bodyLarge,
                 ),
               ],
             ),
             const SizedBox(height: 8),
             //user phone number
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.call),
-                SizedBox(width: 10),
+                const Icon(Icons.call),
+                const SizedBox(width: 10),
                 Text(
                   '+966 123 456 789',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.textTheme.bodyLarge
                 ),
               ],
             ),
@@ -98,11 +90,7 @@ class _AccountPageState extends State<AccountPage> {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  backgroundColor: context.colorScheme.error,
                 ),
                 onPressed: () {},
                 child: const Text('Delete Account'),
